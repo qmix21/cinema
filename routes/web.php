@@ -15,8 +15,3 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/cinemas','CinemaController@index');
-Route::get('/cinemas/{id}','CinemaController@show');
-Route::get('/cinemas','CinemaController@store');
-Route::put('/cinemas/{id}','CinemaController@update');
-Route::delete('/cinemas/{id}','CinemaController@delete');

@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Cinemas;
-class CinemasTableSeeder extends Seeder
+use App\Movies;
+class MovieTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,8 +11,7 @@ class CinemasTableSeeder extends Seeder
      */
     public function run()
     {
+        factory(App\Movies::class, 30)->create();
 
-    	factory(App\Cinemas::class, 30)->create();
-       
     }
 }

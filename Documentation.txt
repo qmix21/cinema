@@ -1,6 +1,6 @@
 Starting the Project.
 
-Created models for each of the 3 classes (Cinema, Movies and Session_time);
+Created models and migration for each of the 3 classes (Cinema, Movies and Session_time);
 
 Created a Seeder to input information into the tables for testing purposes.
 

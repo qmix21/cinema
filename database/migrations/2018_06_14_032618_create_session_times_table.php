@@ -17,7 +17,8 @@ class CreateSessionTimesTable extends Migration
             $table->increments('id');
             $table->integer('movie_id');
             $table->integer('cinema_id');
-            $table->date('time');
+            $table->date('date');
+            $table->time('time');
             $table->timestamps();
         });
     }

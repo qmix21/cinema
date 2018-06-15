@@ -4,41 +4,44 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Cinemas;
-
+use App\Http\Resources\CinemaResource;
 class CinemaController extends Controller
 {
     
+
+    //Get everything in the Cinema Database
     public function index()
     {
-    	return Cinemas::all();
+    	//get cinemas
+    	$cinemas = Cinemas::paginate(15);
+    	return CinemaResource::collection($cinemas);
     }
 
+    //Get Cinema Data which is the same as $id
     public function show($id)
     {
-    	return Cinemas::find($id);
+    	if(is_numeric($id))
+    	{
+    		$cinema = Cinemas::find($id);
+
+    	}
+    	else
+    	{
+    		$column = "name";
+    		$cinema = Cinemas::where($column,'=',$id)->first();
+    	}
+    	return new CinemaResource($cinema);
 
     }
 
-    public function store(Request $request)
+    //Deletes the requested cinema
+    public function destroy($id)
     {
-    	$cinema = Cinemas::create($request=>all());
-    	return response()->json($cinema,201);
-    }
+    	$cinema = Cinemas::findOrFail($id);
+    	if($cinema->delete())
+    	{
+    		return new CinemaResource($cinema);
 
-    public function update(Request $request, Cinemas $cinema)
-    {
-    	
-    	$cinema->update($request->all());
-
-    	return response()->json($cinema,200);
-    }
-
-    public function delete(Request $request,Cinemas $cinema)
-    {
-    	
-    	$cinema->delete();
-
-
-    	return response()->json(null,204);
+    	}
     }
 }

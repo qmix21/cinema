@@ -17,8 +17,9 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (Auth::guard($guard)->check()) {
-            return redirect('/home');
+        if (Auth::guard($guard)->check() && null !== ($token = $request->json('access.user.accessToken',null))) {
+            $request->headers->add([
+                'Authorization'=> 'Bearer'.$token,])
         }
 
         return $next($request);
