@@ -1,18 +1,85 @@
-Starting the Project.
+Api Documentation
 
-Created models and migration for each of the 3 classes (Cinema, Movies and Session_time);
+For all examples given, this server has been setup locally so i will be using localhost for the domain name. Just change localhost to your domain name if you have set this up on a server.
 
-Created a Seeder to input information into the tables for testing purposes.
+{Please note that i was unable to set up API as when i tried i kept getting 401 unauthorised on all my sites even when a user was logged in. So to counter any unauthorised actions i have only allowed GET requests as no-one is able to abuse any POST/PUT/DELETE/PATCH reqeuests. Adding records will be done through artisan tinker or mysql until API Auth works.}
 
-Created Routing 
-[
-Route::get('/cinemas','CinemaController@index');
-Route::get('/cinemas/{id}','CinemaController@show');
-Route::get('/cinemas','CinemaController@store');
-Route::put('/cinemas/{id}','CinemaController@update');
-Route::delete('/cinemas/{id}','CinemaController@delete');
-]
 
-Created an API token table for authentication.
 
-Need to create an Register page. (reading from toptal.com/laravel/restful-laravel-api-tutorial)
+Routes:
+
+CINEMA:
+GET : http://localhost/api/cinemas
+
+Doing the GET request above will get all Cinemas in the database. This route is calling the CinemasController@index function which paginates every 10 objects. it then runs that through CinemaResource::collection. This will sort the data into an array and return it.
+
+
+
+GET : http://localhost/api/cinema/1 or http://localhost/api/cinema/Burwood
+
+Where the '1' is you would substitute for a number to specifiy which cinema you would like to see the data of.
+you can also use names, which you can find by running the GET request to get all cinemas. Both work fine.
+
+GET : http://localhost/api/cinema/*name*/sessions
+This GET request gets all sessions at the cinema *name*
+
+GET : http://localhost/api/cinema/*name*/*movie*
+This GET Request will get all sessions for *movie* at cinema *name*
+
+GET : http://localhost/api/cinema/*name*/session/*time* or *date*
+This GET request will get all sessions from cinema *name* that are playing at *time* or *date*
+
+
+
+
+
+Movies:
+
+
+GET : http://localhost/api/movies
+This GET request will get all the movies in the database.
+
+
+GET : http://localhost/api/movie/1
+This GET Request will get the movies who's ID is 1, you can interchange 1 to any ID as long as it is in the database(run the GET request to get all movies if unsure)
+
+
+GET : http://localhost/api/movie/*name*/sessions
+This will return all sessions for the movie *name*
+
+
+
+
+
+
+
+///// Commented out the below as i dont believe they were necessary.
+Sessions:
+
+GET : http://localhost/api/sessions
+
+This GET Request will return all sessions. Including Cinema name and Movie Name, Session time and date.
+
+
+
+GET : http://localhost/api/session/1
+
+GET Request that returns session that has an ID of 1
+
+
+
+
+GET : http://localhost/api/session/19:00:00 (I Like this format so we are going with it)
+
+GET Request that return all movies and their cinema that has the Time of 19:00:00 (specific format and its 24 hour time, so 00:00:00 = 12am, 23:00:00 11pm)
+
+
+
+GET : http://localhost/api/session/2018-06-15 (This format is handy)
+
+Get request that returns all movies and their cinema that has the Date of 2018-06-15(specific format).
+
+
+
+
+

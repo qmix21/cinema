@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Cinemas;
 use App\Http\Resources\CinemaResource;
+use App\SessionTimes;
+use App\Movies;
+use App\Http\Resources\SessionResource;
 class CinemaController extends Controller
 {
     
@@ -43,5 +46,43 @@ class CinemaController extends Controller
     		return new CinemaResource($cinema);
 
     	}
+    }
+
+      public function sessions($name)
+    {
+        $cinemaID = Cinemas::where('name','=',$name)->first()->id;
+        $sessions = SessionTimes::where('cinema_id','=',$cinemaID)->get();
+        return SessionResource::collection($sessions);
+        //$cinemas = Cinemas::where(,'=',$id)->first();
+
+    }
+
+    public function movie($name,$movie)
+    {
+        $cinemaID = Cinemas::where('name','=',$name)->first()->id;
+        $movieID = Movies::where('title','=',$movie)->first()->id;
+        $cinemas = SessionTimes::where('cinema_id','=',$cinemaID)->get();
+        $sessions = $cinemas->where('movie_id','=',$movieID);
+        return SessionResource::collection($sessions);
+
+    }
+
+    public function sessionTime($name,$date)
+    {
+        $cinemaID = Cinemas::where('name','=',$name)->first()->id;
+        $sessionTimes = SessionTimes::where('cinema_id','=',$cinemaID)->get();
+        if(strpos($date, '-'))
+        {
+            $sessions = $sessionTimes->where('date','=',$date);
+
+        }
+        else
+        {
+            $sessions = $sessionTimes->where('time','=',$date);
+
+        }
+        return SessionResource::collection($sessions);
+
+
     }
 }
