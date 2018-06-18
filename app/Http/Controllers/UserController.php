@@ -42,13 +42,27 @@ class UserController extends Controller
     	{
     		return response()->json(['error'=>$validator->errors()],401);
     	}
-
+        //This try/catch is to error handle duplicate entrys into the database for users so it returns an error.
+        try
+        {
     	$input=$request->all();
     	$input['password']=bcrypt($input['password']);
+        
     	$user = User::create($input);
     	$success['token'] = $user->createToken('MyApp')->accessToken;
     	$success['name']=$user->name;
-    	return response()->json(['success'=>$success],$this->successStatus);
+        return response()->json(['success'=>$success],$this->successStatus);
+
+        }
+        catch(\Illuminate\Database\QueryException $e)
+        {
+            $errorCode = $e->errorInfo[1];
+            if($errorCode == '1062'){
+                $response['error']="User Already Exists";
+            }
+            return response()->json(['error'=>$response],403);
+        }
+
     }
 
     public function details()

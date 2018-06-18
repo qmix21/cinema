@@ -18,11 +18,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
- //// Unsure on how to use Api Auth , not going to use these functions..
-//Route::post('register','UserController@register');
-//Route::post('login','UserController@login');
-//Route::post('logout','Auth\LoginController@logout');
+//Register a new user to get access_token
+Route::post('register','UserController@register');
 
+//login with existing user to get access_token
+Route::post('login','UserController@login');
+
+
+//The below don't need authentication as they are just showing data
 //List All Cinemas
 Route::get('cinemas','CinemaController@index');
 
@@ -39,7 +42,6 @@ Route::get('cinema/{name}/{movie}','CinemaController@movie');
 Route::get("cinema/{name}/sessions/{date}",'CinemaController@sessionTime');
 
 
-
 //List All Movies
 Route::get('movies','MovieController@index');
 
@@ -48,6 +50,21 @@ Route::get('movie/{id}','MovieController@show');
 
 //List All sessions for Movie
 Route::get('movie/{name}/sessions','MovieController@sessions');
+
+
+
+//These need authentication as they are manipulating data, you will need to put Bearer *access_token* in the headers where *access_token* is your access token, found by logging in(http://localhost/api/login)
+Route::group(['middleware' => 'auth:api'], function() 
+{
+Route::post('cinema','CinemaController@store');
+//Route::put('cinema','CinemaController@store');
+//Route::delete('cinema/{id}','CinemaController@destroy');
+
+Route::post('movie','MovieController@store');
+});
+
+
+
 
 
 
@@ -60,9 +77,3 @@ Route::get('movie/{name}/sessions','MovieController@sessions');
 //List session by Date or Time
 //Route::get('session/{time}','SessionController@time');
 
-
-
-////Wont be needing these for the project but there if needed
-//Route::post('cinema','CinemaController@store');
-//Route::put('cinema','CinemaController@store');
-//Route::delete('cinema/{id}','CinemaController@destroy');

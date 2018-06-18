@@ -26,6 +26,11 @@ class MovieController extends Controller
 
     }
 
+    public function store(Request $request)
+    {
+        return Movies::create($request->all());
+    }
+
     public function sessions($name)
     {
         $movieID = Movies::where('title','=',$name)->first()->id;

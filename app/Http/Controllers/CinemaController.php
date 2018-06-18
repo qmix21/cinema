@@ -16,7 +16,7 @@ class CinemaController extends Controller
     public function index()
     {
     	//get cinemas
-    	$cinemas = Cinemas::paginate(15);
+    	$cinemas = Cinemas::paginate(1);
     	return CinemaResource::collection($cinemas);
     }
 
@@ -35,6 +35,11 @@ class CinemaController extends Controller
     	}
     	return new CinemaResource($cinema);
 
+    }
+
+    public function post(Request $request)
+    {
+        return Cinemas::create($request->all());
     }
 
     //Deletes the requested cinema
