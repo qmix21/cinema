@@ -61,6 +61,8 @@ Route::post('cinema','CinemaController@store');
 //Route::delete('cinema/{id}','CinemaController@destroy');
 
 Route::post('movie','MovieController@store');
+
+Route::post('session', 'SessionController@store');
 });
 
 

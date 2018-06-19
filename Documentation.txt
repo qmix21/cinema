@@ -1,11 +1,14 @@
 Api Documentation
 
-For all examples given, this server has been setup locally so i will be using localhost for the domain name. Just change localhost to your domain name if you have set this up on a server.
+For all examples given, this server has been setup locally using apache2 so i will be using localhost for the domain name. Just change localhost to your domain name inside your httpd.conf if you have set this up on a server and ensure that the database details in .env is the same as your database.
 
-{Please note that i was unable to set up API as when i tried i kept getting 401 unauthorised on all my sites even when a user was logged in. So to counter any unauthorised actions i have only allowed GET requests as no-one is able to abuse any POST/PUT/DELETE/PATCH reqeuests. Adding records will be done through artisan tinker or mysql until API Auth works.}
+I have built a web application that utilises the API. (wasn't sure if this was needed or the api was only to be used via the URL), web application can be reach at http://localhost/, the web application will have all the below functions.
+
+All POST requests will require a user to have registered using the http://localhost/api/register function and have them keep a copy of their access token as it will be needed.
 
 
 
+Via URL:
 Routes:
 
 CINEMA:
@@ -53,7 +56,11 @@ This will return all sessions for the movie *name*
 
 
 
-///// Commented out the below as i dont believe they were necessary.
+
+
+
+
+/////Commented out the below as i dont believe they were necessary.
 Sessions:
 
 GET : http://localhost/api/sessions

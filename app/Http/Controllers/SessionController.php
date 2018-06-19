@@ -56,4 +56,10 @@ class SessionController extends Controller
    	return $arr;
    }
 
+
+   public function store(Request $request)
+   {
+        return SessionTimes::create($request->all());
+   }
+
 }

@@ -14,8 +14,3 @@
 Route::get('/', function () {
     return view('home');
 });
-
-Route::get('/jq',function()
-{
-return view('jq');
-});
