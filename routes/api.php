@@ -41,6 +41,8 @@ Route::get('cinema/{name}/{movie}','CinemaController@movie');
 //List All Sessions happening at Cinema at time or date
 Route::get("cinema/{name}/sessions/{date}",'CinemaController@sessionTime');
 
+Route::get('cinema/{name}/{movie}/{date}','CinemaController@movieSession');
+
 
 //List All Movies
 Route::get('movies','MovieController@index');

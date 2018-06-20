@@ -21,17 +21,25 @@ class MovieController extends Controller
     //Get Cinema Data which is the same as $id
     public function show($id)
     {
-    if(is_numeric($id))
+        try
         {
-            $movie = Movies::find($id);
+            if(is_numeric($id))
+             {
+                $movie = Movies::findOrFail($id);
 
+             }
+            else
+            {
+                $column = "title";
+                $movie = Movies::where($column,'=',$id)->first();
+            }
+
+            return $movie;
         }
-        else
+        catch(Exception $e)
         {
-            $column = "title";
-            $movie = Movies::where($column,'=',$id)->first();
+            return $e;
         }
-        return $movie;
     }
 
     public function store(Request $request)

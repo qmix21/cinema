@@ -2,7 +2,7 @@ Api Documentation
 
 For all examples given, this server has been setup locally using apache2 so i will be using localhost for the domain name. Just change localhost to your domain name inside your httpd.conf if you have set this up on a server and ensure that the database details in .env is the same as your database.
 
-I have built a web application that utilises the API. (wasn't sure if this was needed or the api was only to be used via the URL), web application can be reach at http://localhost/, the web application will have all the below functions.
+I am in the progress of building a web application that utilises the API. (wasn't sure if this was needed or the api was only to be used via the URL), web application can be reach at http://localhost/, the web application will try and have all the below functions.
 
 All POST requests will require a user to have registered using the http://localhost/api/register function and have them keep a copy of their access token as it will be needed.
 
@@ -29,8 +29,11 @@ This GET request gets all sessions at the cinema *name*
 GET : http://localhost/api/cinema/*name*/*movie*
 This GET Request will get all sessions for *movie* at cinema *name*
 
-GET : http://localhost/api/cinema/*name*/session/*time* or *date*
+GET : http://localhost/api/cinema/*name*/sessions/*time* or *date*
 This GET request will get all sessions from cinema *name* that are playing at *time* or *date*
+
+GET : http://localhosst/api/cinema/*name*/*movie*/*time or date*
+This Get request will get the session at cinema for movie at the time or date
 
 
 
@@ -61,6 +64,7 @@ This will return all sessions for the movie *name*
 
 
 /////Commented out the below as i dont believe they were necessary.
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Sessions:
 
 GET : http://localhost/api/sessions
@@ -90,3 +94,4 @@ Get request that returns all movies and their cinema that has the Date of 2018-0
 
 
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
