@@ -16,7 +16,7 @@ class CinemaController extends Controller
     public function index()
     {
     	//get cinemas
-    	$cinemas = Cinemas::paginate(1);
+    	$cinemas = Cinemas::paginate(10);
     	return CinemaResource::collection($cinemas);
     }
 
@@ -25,15 +25,32 @@ class CinemaController extends Controller
     {
     	if(is_numeric($id))
     	{
-    		$cinema = Cinemas::find($id);
+            if(Cinemas::where('id','=',$id)){
+                $cinema = Cinemas::findOrFail($id);
+            }
+            else
+            {
+                $cinema = ['errors'=>'ID not found'];
+            }
+            return new $cinema;
+
 
     	}
     	else
     	{
     		$column = "name";
-    		$cinema = Cinemas::where($column,'=',$id)->first();
+            $cinema = Cinemas::where($column,'=',$id)->first();
+                if($cinema)
+                {
+                    return new CinemaResource($cinema);
+
+                }
+            else
+            {
+                $cinema = ['Errors'=>'Unable to find Cinema'];
+                return $cinema;
+            }
     	}
-    	return new CinemaResource($cinema);
 
     }
 
@@ -55,9 +72,18 @@ class CinemaController extends Controller
 
       public function sessions($name)
     {
-        $cinemaID = Cinemas::where('name','=',$name)->first()->id;
+        if (Cinemas::where("name",'=',$name)->first())
+        {
+         $cinemaID = Cinemas::where('name','=',$name)->first()->id;
         $sessions = SessionTimes::where('cinema_id','=',$cinemaID)->get();
         return SessionResource::collection($sessions);
+        }
+        else
+        {
+            $session =['Errors'=>'No Such Cinema'];
+            return $session;
+        }
+        
         //$cinemas = Cinemas::where(,'=',$id)->first();
 
     }
@@ -112,7 +138,7 @@ class CinemaController extends Controller
                 return ['error'=>'Format is incorrect, must be XX:XX:XX or YYYY-MM-DD'];
 
             }
-            if(!$sessions)
+            if($sessions)
             {
             return SessionResource::collection($sessions);
             }

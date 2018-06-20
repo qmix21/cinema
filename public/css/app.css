@@ -10423,6 +10423,12 @@ a.text-dark:focus {
   padding: 10px;
 }
 
+.column-sm {
+  float: right;
+  width: 15%;
+  padding: 10px;
+}
+
 .row:after {
   content: "";
   display: table;

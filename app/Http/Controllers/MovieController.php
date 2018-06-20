@@ -26,15 +26,25 @@ class MovieController extends Controller
             if(is_numeric($id))
              {
                 $movie = Movies::findOrFail($id);
+                return new MovieResource($movie);
 
              }
             else
             {
                 $column = "title";
                 $movie = Movies::where($column,'=',$id)->first();
+                if($movie)
+                {
+                    return new MovieResource($movie);
+
+                }
+                else
+                {
+                    return ['Errors'=>'Movie Does Not Exist'];
+                }
             }
 
-            return $movie;
+            
         }
         catch(Exception $e)
         {
@@ -49,9 +59,17 @@ class MovieController extends Controller
 
     public function sessions($name)
     {
+        if(Movies::where('title','=',$name)->first())
+        {
         $movieID = Movies::where('title','=',$name)->first()->id;
         $sessions = SessionTimes::where('movie_id','=',$movieID)->get();
         return SessionResource::collection($sessions);
+        }
+        else
+        {
+            return ["Errors"=>'Movie Does not Exist'];
+        }
+       
         //$cinemas = Cinemas::where(,'=',$id)->first();
 
     }
