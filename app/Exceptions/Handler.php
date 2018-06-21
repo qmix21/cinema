@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Illuminate\Auth\AuthenticationException as AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
@@ -52,6 +53,13 @@ class Handler extends ExceptionHandler
             return response()->json([
                 'error' => 'Resource not found'
             ],404);
+        }
+        if ($exception instanceof MethodNotAllowedHttpException) 
+        {
+            return response()->json( [
+                                        'success' => 0,
+                                        'message' => 'Method is not allowed for the requested route',
+                                    ], 405 );
         }
         return parent::render($request, $exception);
     }
