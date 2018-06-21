@@ -52,6 +52,40 @@ GET : http://localhost/api/movie/*name*/sessions
 This will return all sessions for the movie *name*
 
 
+//All the below POST and DELETE requests will require an access_token in the header
+example header: Authorisation : Bearer *access_token*
+
+POST : http://localhost/api/movie
+When creating a movie all it needs in the body is:
+Title : *movie name*
+
+
+POST : http://localhost/api/cinema
+When creating a cinema it will need the below:
+name : *Cinema Name*
+address : *Address*
+long : *longitude*
+lat : *latitude*
+
+POST : http://localhost/api/session
+When creating a session it will need the below:
+movie_id : *movie ID*
+cinema_id : *cinema ID*
+time : *time in format XX:XX:XX*
+date : *date in format YYYY:MM:DD*
+
+
+DELETE : http://localhost/api/cinema/{id}
+Will delete the cinema with an ID , will also delete any session that has that cinema ID
+
+DELETE : http://localhost/api/movie/{id}
+Will delete the movie with an ID , will also delete any session that has the movie ID
+
+DELETE : http://localhost/api/session/{id}
+Will delete the session with an ID
+
+
+
 
 
 

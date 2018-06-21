@@ -59,12 +59,18 @@ Route::get('movie/{name}/sessions','MovieController@sessions');
 Route::group(['middleware' => 'auth:api'], function() 
 {
 
-//Route::put('cinema','CinemaController@store');
+//Deletes the cinema with ID
 Route::delete('cinema/{id}','CinemaController@destroy');
+//Deletes session with ID
 Route::delete('session/{id}','SessionController@destroy');
+//Deletes movie with ID
 Route::delete('movie/{id}','MovieController@destroy');
+
+//creates cinema
 Route::post('cinema','CinemaController@store');
+//creates movie
 Route::post('movie','MovieController@store');
+//creates session
 Route::post('session', 'SessionController@store');
 });
 
