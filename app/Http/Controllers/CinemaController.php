@@ -59,17 +59,29 @@ class CinemaController extends Controller
         return Cinemas::create($request->all());
     }
 
+
     //Deletes the requested cinema
     public function destroy($id)
     {
     	$cinema = Cinemas::findOrFail($id);
     	if($cinema->delete())
     	{
-    		return new CinemaResource($cinema);
+            $cinemaID = $cinema->id;
+            $sessions = SessionTimes::where('cinema_id','=',$cinemaID);
+            $sessions->delete();
+
+    		return ['Success'=>'Succesfully Deleted Cinema'.$cinema->name];
 
     	}
     }
+        //Creates a new Cinema
+       public function store(Request $request)
+        {
+            return Cinemas::create($request->all());
+        }
 
+
+        // Used to get All sessions at this cinema
       public function sessions($name)
     {
         if (Cinemas::where("name",'=',$name)->first())
@@ -88,6 +100,7 @@ class CinemaController extends Controller
 
     }
 
+    //Used to get all sessions for a certain movie at a certain cinema
     public function movie($name,$movie)
     {
         try
@@ -116,6 +129,7 @@ class CinemaController extends Controller
 
     }
 
+    //get all movies at a certain date and a certain cinema
     public function sessionTime($name,$date)
     {
         if (Cinemas::where('name','=',$name)->first())
@@ -154,7 +168,7 @@ class CinemaController extends Controller
 
     }
 
-
+    //Used to get a certain movie at a certain cinema at a certain date
     public function movieSession($cinema,$movie,$date)
     {
         if(Cinemas::where('name','=',$cinema)->first() || Movies::where('title','=',$movie)->first())

@@ -14,7 +14,7 @@ class MovieController extends Controller
       public function index()
     {
     	//get cinemas
-    	$movies = Movies::paginate(15);
+    	$movies = Movies::paginate(10);
     	return MovieResource::collection($movies);
     }
 
@@ -32,7 +32,7 @@ class MovieController extends Controller
             else
             {
                 $column = "title";
-                $movie = Movies::where($column,'=',$id)->first();
+                $movie = Movies::where($column,'like','%'.$id.'%')->first();
                 if($movie)
                 {
                     return new MovieResource($movie);
@@ -55,6 +55,19 @@ class MovieController extends Controller
     public function store(Request $request)
     {
         return Movies::create($request->all());
+    }
+
+    public function destroy($id)
+    {
+        $movie = Movies::findOrFail($id);
+        if($movie->delete())
+        {
+            $movieID = $movie->id;
+            $sessions = SessionTimes::where("movie_id",'=',$movieID);
+            $sessions->delete();
+            return ['Success'=>'Succesfully Deleted Movie'.$movie->title];
+
+        }
     }
 
     public function sessions($name)

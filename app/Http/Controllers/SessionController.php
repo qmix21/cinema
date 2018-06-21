@@ -62,4 +62,14 @@ class SessionController extends Controller
         return SessionTimes::create($request->all());
    }
 
+   public function destroy($id)
+    {
+        $session = SessionTimes::findOrFail($id);
+        if($session->delete())
+        {
+            return ['Success'=>'Succesfully Deleted Session'];
+
+        }
+    }
+
 }

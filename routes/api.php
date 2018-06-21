@@ -58,12 +58,13 @@ Route::get('movie/{name}/sessions','MovieController@sessions');
 //These need authentication as they are manipulating data, you will need to put Bearer *access_token* in the headers where *access_token* is your access token, found by logging in(http://localhost/api/login)
 Route::group(['middleware' => 'auth:api'], function() 
 {
-Route::post('cinema','CinemaController@store');
+
 //Route::put('cinema','CinemaController@store');
-//Route::delete('cinema/{id}','CinemaController@destroy');
-
+Route::delete('cinema/{id}','CinemaController@destroy');
+Route::delete('session/{id}','SessionController@destroy');
+Route::delete('movie/{id}','MovieController@destroy');
+Route::post('cinema','CinemaController@store');
 Route::post('movie','MovieController@store');
-
 Route::post('session', 'SessionController@store');
 });
 

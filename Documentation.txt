@@ -2,9 +2,11 @@ Api Documentation
 
 For all examples given, this server has been setup locally using apache2 so i will be using localhost for the domain name. Just change localhost to your domain name inside your httpd.conf if you have set this up on a server and ensure that the database details in .env is the same as your database.
 
-I am in the progress of building a web application that utilises the API. (wasn't sure if this was needed or the api was only to be used via the URL), web application can be reach at http://localhost/, the web application will try and have all the below functions.
+I am in the progress of building a web application that utilises the API. (wasn't sure if this was needed or the api was only to be used via the URL), web application can be reach at http://localhost/, the web application will try and have all the below functions. You can hover over the buttons to show what api function it is runnning
 
 All POST requests will require a user to have registered using the http://localhost/api/register function and have them keep a copy of their access token as it will be needed. The POST requests will also need to be done via POSTMAN
+
+
 
 Note: Wasn't able to figure out how to shorten the time to 12:00 .....
 
@@ -17,6 +19,7 @@ Routes:
 CINEMA:
 GET : http://localhost/api/cinemas
 Doing the GET request above will get all Cinemas in the database. This route is calling the CinemasController@index function which paginates every 10 objects. it then runs that through CinemaResource::collection. This will sort the data into an array and return it.
+This also supports pages, 10 per page, you can go http://localhost/api/cinemas?page=X , where X is the number of pages
 
 GET : http://localhost/api/cinema/1 or http://localhost/api/cinema/Burwood
 Where the '1' is you would substitute for a number to specifiy which cinema you would like to see the data of.
@@ -40,7 +43,7 @@ This Get request will get the session at cinema for movie at the time or date
 
 Movies:
 GET : http://localhost/api/movies
-This GET request will get all the movies in the database.
+This GET request will get all the movies in the database. This supports pages, you can go http://localhost/api/movies?page=X where X is the number of the page you want
 
 GET : http://localhost/api/movie/1
 This GET Request will get the movies who's ID is 1, you can interchange 1 to any ID as long as it is in the database(run the GET request to get all movies if unsure)
