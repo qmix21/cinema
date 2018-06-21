@@ -32,7 +32,7 @@ class CinemaController extends Controller
             {
                 $cinema = ['errors'=>'ID not found'];
             }
-            return new $cinema;
+            return $cinema;
 
 
     	}

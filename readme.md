@@ -15,3 +15,5 @@ Sessions that are on this date -> http://localhost/api/cinema/beverly-hills/sess
 Sessions that are at this time -> http://localhost/api/cinema/beverly-hills/sessions/19:00:00
 
 For more combinations of what data you want returned please take a look at the Documentation.txt.
+
+Here is the Postman Documentation : https://documenter.getpostman.com/view/4611540/RWEgseVD
